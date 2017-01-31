@@ -11,6 +11,8 @@ Skeleton of participants module
 
 # Authors
 
-- Herminio García González (@herminiogg)
-- Jose Emilio Labra Gayo (@labra)
+- David Lorenzo González (UO244795)
+- Martín Peláez Díaz (UO236974)
+- Laura Menéndez Pérez (UO244646)
+- Fernando Palazuelo Ginzo (UO244588)
 
