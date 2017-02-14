@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>es.uniovi.asw</groupId>
-	<artifactId>participants0</artifactId>
-	<name>participants0</name>
+	<artifactId>participants1a</artifactId>
+	<name>participants1a</name>
 	<version>0.0.1</version>
 
 	<parent>
@@ -13,7 +13,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.3.RELEASE</version>
 	</parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -77,9 +77,9 @@
 				</executions>
 			</plugin>
 		</plugins>
-		
+
 	</build>
-	
+
 	<reporting>
 		<plugins>
 			<plugin>

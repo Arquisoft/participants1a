@@ -5,10 +5,11 @@
 </head>
 <body>
 	<h1>Informacion del usuario</h1>
- 	
- 	<p th:text="'Nombre: ' + ${nombre} " />
-    <p th:text="'Apellidos: ' + ${apellidos} " />
-    <p th:text="'DNI: ' + ${dni}" />
-    <p th:text="'Email: ' + ${email} " />
+ 	<form method="POST" th:action="@{/user/changeInfo}" th:object="${participant}">
+    	<input type="text" name="email" th:field="${participant.email}" />
+    	<input type="text" name="password"/>
+    	<input type="text" name="newPassword"/>
+		<input type="submit" value="Cambiar datos"/>
+	</form>
 </body>
 </html>

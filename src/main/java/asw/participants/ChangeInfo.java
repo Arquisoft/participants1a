@@ -1,8 +1,6 @@
 package asw.participants;
 
-import org.springframework.web.bind.annotation.RequestBody;
-
-import asw.participants.webService.responses.ChangeInfoResponse;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface ChangeInfo {
 	/**
@@ -10,6 +8,7 @@ public interface ChangeInfo {
 	 * ciudadano mediante una combinación de datos:
 	 * email/contraseña/nuevaContraseña.
 	 */
-	public String changeInfo(@RequestBody ChangeInfoResponse cir);
+	public String changeInfo(@RequestParam String email,
+			@RequestParam String password, @RequestParam String newPassword);
 
 }
