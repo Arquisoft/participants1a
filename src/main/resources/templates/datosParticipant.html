@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
  	<meta charset="UTF-8"/>
  	<title>Datos personales</title>
@@ -8,25 +9,22 @@
 <h1>Datos personales</h1>
 <form method="POST" action="login" >
 	<label for="email">Correo: </label>
-	<input type="text" id="email" name="email"/>
+	<input type="text" id="email" name="email" th:value="${email}" />
 	<br/>
 	<label for="name">Nombre: </label>
-	<input type="text" id="name" name="name"  />
+	<input type="text" id="name" name="name" th:value="${name}"  />
 	<br/>
 	<label for="secondName">Apellidos: </label>
-	<input type="text" id="secondName" name="secondName"  />
-	<br/>
-	<label for="mail">Email: </label>
-	<input type="text" id="mail" name="mail"  />
+	<input type="text" id="secondName" name="secondName"  th:value="${secondName}" />
 	<br/>
 	<label for="dni">DNI: </label>
-	<input type="text" id="dni" name="dni"  />
+	<input type="text" id="dni" name="dni" th:value="${dni}" />
 	<br/>
 	<label for="adress">Direccion: </label>
-	<input type="text" id="adress" name="adress"  />
+	<input type="text" id="adress" name="adress" th:value="${adress}" />
 	<br/>
 	<label for="age">Edad: </label>
-	<input type="text" id="age" name="age"  />
+	<input type="text" id="age" name="age" th:value="${age}"  />
 	<br/>
 </form>
 </body>

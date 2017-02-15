@@ -1,17 +1,18 @@
 package asw.participants;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import asw.participants.impl.Rest.PeticionInfoREST;
+import asw.participants.impl.Rest.RespuestaInfoREST;
+
 public interface GetParticipantInfo {
-	/**
-	 * Acceso a los datos de un participante
-	 * mediante la combinación email/contraseña
-	 */
-	public String getLogin( @RequestParam String mail,  @RequestParam String password,Model model);
+
 	
-	
-	
+
+
+	public ResponseEntity<RespuestaInfoREST> getPOSTpetition(PeticionInfoREST peticion);
 		
 
 

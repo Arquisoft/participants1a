@@ -5,8 +5,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-@Component
-public class Utilidades {
+
+public  class Utilidades {
 	///////////////////////////////////////////////////////////////
 	/// //
 	/// Clase creada para realizar funciones que no //
@@ -14,11 +14,9 @@ public class Utilidades {
 	/// //
 	//////////////////////////////////////////////////////////
 
-	public Utilidades() {
 
-	}
 
-	public boolean validarCorreo(String mail) {
+	public static boolean validarCorreo(String mail) {
 		String[] mailSplit = mail.split("@");
 		if (mailSplit.length != 2 || mailSplit[0].length() == 0) {
 			return false;
@@ -31,7 +29,7 @@ public class Utilidades {
 		return true;
 	}
 
-	public int getEdad(Date fechaNacimiento) {
+	public static int getEdad(Date fechaNacimiento) {
 		Calendar calendarioNacimiento = Calendar.getInstance();
 		calendarioNacimiento.setTime(fechaNacimiento);
 		int dianacimiento = calendarioNacimiento.get(Calendar.DAY_OF_YEAR);
