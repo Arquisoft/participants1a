@@ -12,14 +12,14 @@ import asw.dbManagement.model.Participant;
 import asw.participants.GetParticipantInfo;
 import asw.participants.factory.ErrorFactory;
 import asw.participants.factory.ErrorFactory.Errors;
-import asw.participants.util.Validaciones;
+import asw.participants.util.Utilidades;
 
 @Controller
 public class GetParticipantInfoController implements GetParticipantInfo{
 
 	
 	@Autowired
-	private Validaciones validaciones;
+	private Utilidades utilidades;
 	
 	@Autowired
 	private GetParticipant getParticipant;
@@ -41,16 +41,23 @@ public class GetParticipantInfoController implements GetParticipantInfo{
 		Participant participant = getParticipant.getParticipant(mail);
 		
 		
-		if(!validaciones.validarCorreo(mail)){
+		if(!utilidades.validarCorreo(mail)){//Se lanza este error cuan
 			throw ErrorFactory.getError(Errors.WRONG_EMAIL_STYLE);
 		}
 		if(!password.equals(participant.getPassword())){
 			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
 		}
 		
-		model.addAttribute("",participant.getNombre());
 		
-		
+		/*
+		 * Añadimos la información al modelo, para que se muestre en la pagina html: datosParticipant
+		 */
+		model.addAttribute("name",participant.getNombre());
+		model.addAttribute("secondName",participant.getApellidos());
+		model.addAttribute("age", utilidades.getEdad(participant.getFechaNacimiento()));
+		model.addAttribute("adress",participant.getDireccion());
+		model.addAttribute("mail",participant.getEmail());
+		model.addAttribute("dni",participant.getDNI());
 		
 		
 		
