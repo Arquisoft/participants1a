@@ -1,16 +1,24 @@
 package asw.dbManagement.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import asw.dbManagement.GetParticipant;
 import asw.dbManagement.model.Participant;
+import asw.dbManagement.repository.ParticipantRepository;
 
 public class GetParticipantImpl implements GetParticipant {
-
-	public Participant getParticipant() {
-//		return Jpa.getManager().createNamedQuery("Participant.find", Participant.class)
-//				.getSingleResult();
+	
+	private ParticipantRepository repository;
+	
+	@Autowired
+	public GetParticipantImpl(ParticipantRepository repository) {
+		this.repository = repository;
+	}
+	
+	@Override
+	public Participant getParticipant(String email) {
 		
-		
-		return null;
+		return this.repository.findByEmail(email);
 	}
 
 }
