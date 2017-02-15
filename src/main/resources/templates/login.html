@@ -5,12 +5,12 @@
 </head>
 <body>
 <h1>Login</h1>
-<form method="POST" th:action="@{/infoUsuario}" action="login" th:object="${formulario}">
+<form method="POST" action="login" >
 	<label for="email">Usuario: </label>
-	<input type="text" id="email" name="email" th:field="${formulario.email}" />
+	<input type="text" id="email" name="email" field="formulario.email" />
 	<br/>
 	<label for="password">Contraseña: </label>
-	<input type="password" id="password" name="password" th:field="${formulario.password}" />
+	<input type="password" id="password" name="password" field="formulario.password" />
 	<br/>
 	<button type="submit" id="login">Entrar</button>
 </form>

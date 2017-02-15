@@ -2,6 +2,9 @@ package asw.participants.util;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Validaciones {
 	///////////////////////////////////////////////////////////////
 	///															//										
@@ -11,7 +14,9 @@ public class Validaciones {
 	//////////////////////////////////////////////////////////
 	
 	
-	
+	public Validaciones(){
+		
+	}
 	
 	
 	public boolean validarCorreo(String mail){
