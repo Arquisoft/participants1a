@@ -49,7 +49,7 @@ public class GetParticipantInfoRESTController implements GetParticipantInfo {
 		 * html: datosParticipant
 		 */
 
-		return new ResponseEntity<RespuestaInfoREST>(new RespuestaInfoREST(participant), HttpStatus.ACCEPTED);
+		return new ResponseEntity<RespuestaInfoREST>(new RespuestaInfoREST(participant), HttpStatus.OK);
 	}
 
 }

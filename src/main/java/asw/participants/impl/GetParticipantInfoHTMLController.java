@@ -54,7 +54,7 @@ public class GetParticipantInfoHTMLController {
 		model.addAttribute("secondName", participant.getApellidos());
 		model.addAttribute("age", Utilidades.getEdad(participant.getFechaNacimiento()));
 		model.addAttribute("adress", participant.getDireccion());
-		model.addAttribute("mail", participant.getEmail());
+		model.addAttribute("email", participant.getEmail());
 		model.addAttribute("dni", participant.getDNI());
 
 		return "datosParticipant";

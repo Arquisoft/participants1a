@@ -14,7 +14,7 @@ import asw.participants.factory.ErrorFactory.Errors;
 import asw.participants.webService.responses.errors.ErrorResponse;
 
 @RestController
-//@RequestMapping("user")
+@RequestMapping("user")
 public class ChangeInfoController implements ChangeInfo {
 
 	@Override
