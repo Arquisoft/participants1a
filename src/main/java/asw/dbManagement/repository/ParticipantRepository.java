@@ -1,5 +1,11 @@
 package asw.dbManagement.repository;
 
-public class ParticipantRepository {
+import org.springframework.data.repository.CrudRepository;
 
+import asw.dbManagement.model.Participant;
+
+public interface ParticipantRepository extends CrudRepository<Participant, Long> {
+	
+	public Participant findByEmail(String email);
+	
 }
