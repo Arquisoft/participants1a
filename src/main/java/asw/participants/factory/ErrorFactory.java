@@ -6,6 +6,7 @@ import asw.participants.webService.responses.errors.RequiredEmailErrorResponse;
 import asw.participants.webService.responses.errors.RequiredPasswordErrorResponse;
 import asw.participants.webService.responses.errors.UnknownErrorResponse;
 import asw.participants.webService.responses.errors.UserNotFoundResponse;
+import asw.participants.webService.responses.errors.WrongEmailStyle;
 
 //Creacion de los distintos tipos de error.
 public class ErrorFactory {
@@ -14,7 +15,8 @@ public class ErrorFactory {
 		INCORRECT_PASSWORD,
 		REQUIRED_EMAIL,
 		REQUIRED_PASSWORD,
-		USER_NOT_FOUND
+		USER_NOT_FOUND,
+		WRONG_EMAIL_STYLE
 	}
 
 	// Generar Constructor privado no queremos que se pueda tener varias
@@ -32,6 +34,8 @@ public class ErrorFactory {
 			return new RequiredPasswordErrorResponse();
 		case USER_NOT_FOUND:
 			return new UserNotFoundResponse();
+		case WRONG_EMAIL_STYLE:
+			return new WrongEmailStyle();
 		default:// en caso de no conocer el error.
 			return new UnknownErrorResponse();
 		}
