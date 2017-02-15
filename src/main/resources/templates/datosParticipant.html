@@ -2,18 +2,17 @@
 <html>
 <head>
  	<meta charset="UTF-8"/>
- 	<title>Login</title>
+ 	<title>Datos personales</title>
 </head>
 <body>
-<h1>Login</h1>
+<h1>Datos personales</h1>
 <form method="POST" action="login" >
 	<label for="email">Usuario: </label>
-	<input type="text" id="email" name="email"/>
+	<input type="text" id="email" name="email" field="formulario.email" />
 	<br/>
 	<label for="password">Contraseña: </label>
-	<input type="password" id="password" name="password" />
+	<input type="password" id="password" name="password" field="formulario.password" />
 	<br/>
-	<button type="submit" id="login">Entrar</button>
 </form>
 </body>
 </html>
