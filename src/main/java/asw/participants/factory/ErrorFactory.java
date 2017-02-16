@@ -1,12 +1,12 @@
 package asw.participants.factory;
 
-import asw.participants.errors.ErrorResponse;
-import asw.participants.errors.IncorrectPasswordResponse;
-import asw.participants.errors.RequiredEmailErrorResponse;
-import asw.participants.errors.RequiredPasswordErrorResponse;
-import asw.participants.errors.UnknownErrorResponse;
-import asw.participants.errors.UserNotFoundResponse;
-import asw.participants.errors.WrongEmailStyle;
+import asw.participants.webService.responses.errors.ErrorResponse;
+import asw.participants.webService.responses.errors.IncorrectPasswordResponse;
+import asw.participants.webService.responses.errors.RequiredEmailErrorResponse;
+import asw.participants.webService.responses.errors.RequiredPasswordErrorResponse;
+import asw.participants.webService.responses.errors.UnknownErrorResponse;
+import asw.participants.webService.responses.errors.UserNotFoundResponse;
+import asw.participants.webService.responses.errors.WrongEmailStyleResponse;
 
 //Creacion de los distintos tipos de error.
 public class ErrorFactory {
@@ -35,7 +35,7 @@ public class ErrorFactory {
 		case USER_NOT_FOUND:
 			return new UserNotFoundResponse();
 		case WRONG_EMAIL_STYLE:
-			return new WrongEmailStyle();
+			return new WrongEmailStyleResponse();
 		default:// en caso de no conocer el error.
 			return new UnknownErrorResponse();
 		}
