@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Datos personales</h1>
-<form method="POST" action="login" >
+<form method="POST" action="changeInfo" >
 	<label for="email">Correo: </label>
 	<input type="text" id="email" name="email" th:value="${email}" />
 	<br/>
@@ -26,6 +26,8 @@
 	<label for="age">Edad: </label>
 	<input type="text" id="age" name="age" th:value="${age}"  />
 	<br/>
+	<br/>
+	<input type="submit" name="cambiarDatos" value="Cambiar datos"/>
 </form>
 </body>
 </html>

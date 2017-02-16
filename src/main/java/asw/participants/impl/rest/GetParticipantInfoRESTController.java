@@ -1,14 +1,11 @@
-package asw.participants.impl;
+package asw.participants.impl.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import asw.dbManagement.GetParticipant;
@@ -16,9 +13,8 @@ import asw.dbManagement.model.Participant;
 import asw.participants.GetParticipantInfo;
 import asw.participants.factory.ErrorFactory;
 import asw.participants.factory.ErrorFactory.Errors;
-import asw.participants.impl.Rest.PeticionInfoREST;
-import asw.participants.impl.Rest.RespuestaInfoREST;
-import asw.participants.util.Utilidades;
+import asw.participants.impl.request.PeticionInfoREST;
+import asw.participants.impl.request.RespuestaInfoREST;
 
 @RestController
 public class GetParticipantInfoRESTController implements GetParticipantInfo {

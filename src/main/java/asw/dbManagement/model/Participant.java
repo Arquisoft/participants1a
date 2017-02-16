@@ -40,7 +40,7 @@ public class Participant {
 		this.password = password;
 		this.fechaNacimiento = fechaNacimiento;
 		this.email = email;
-		DNI = dNI;
+		this.DNI = dNI;
 		this.direccion = direccion;
 		this.nacionalidad = nacionalidad;
 	}

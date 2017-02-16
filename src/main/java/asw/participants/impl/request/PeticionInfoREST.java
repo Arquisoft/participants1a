@@ -1,4 +1,4 @@
-package asw.participants.impl.Rest;
+package asw.participants.impl.request;
 
 public class PeticionInfoREST {
 	

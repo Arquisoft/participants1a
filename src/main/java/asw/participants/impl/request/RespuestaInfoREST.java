@@ -1,10 +1,4 @@
-package asw.participants.impl.Rest;
-
-import java.util.Date;
-
-import javax.persistence.Column;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package asw.participants.impl.request;
 
 import asw.dbManagement.model.Participant;
 import asw.participants.util.Utilidades;

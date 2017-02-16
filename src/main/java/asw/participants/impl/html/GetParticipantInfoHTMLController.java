@@ -1,4 +1,4 @@
-package asw.participants.impl;
+package asw.participants.impl.html;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

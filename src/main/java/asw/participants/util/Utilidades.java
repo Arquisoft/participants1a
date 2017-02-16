@@ -3,8 +3,6 @@ package asw.participants.util;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.springframework.stereotype.Component;
-
 
 public  class Utilidades {
 	///////////////////////////////////////////////////////////////
