@@ -12,20 +12,20 @@ public  class Utilidades {
 	/// //
 	//////////////////////////////////////////////////////////
 
-
-
-	public static boolean validarCorreo(String mail) {
-		String[] mailSplit = mail.split("@");
-		if (mailSplit.length != 2 || mailSplit[0].length() == 0) {
-			return false;
-		}
-		mailSplit = mail.split(".");
-		if (mailSplit.length != 2 || mailSplit[0].length() == 0 || mailSplit[1].length() == 0) {
-			return false;
-		}
-
-		return true;
-	}
+//metido en assert
+//
+//	public static boolean validarCorreo(String mail) {
+//		String[] mailSplit = mail.split("@");
+//		if (mailSplit.length != 2 || mailSplit[0].length() == 0) {
+//			return false;
+//		}
+//		mailSplit = mail.split(".");
+//		if (mailSplit.length != 2 || mailSplit[0].length() == 0 || mailSplit[1].length() == 0) {
+//			return false;
+//		}
+//
+//		return true;
+//	}
 
 	public static int getEdad(Date fechaNacimiento) {
 		Calendar calendarioNacimiento = Calendar.getInstance();
