@@ -34,7 +34,7 @@ public class ChangeInfoRESTController implements ChangeInfo {
 		validarCampos(email, password, newPassword);
 		
 		Participant p = getParticipant.getParticipant(email);
-		validarPassword(password, p);
+		Assert.isPasswordCorrect(password, p);
 
 		updateInfo.updateInfo(p, password, newPassword);
 		
@@ -42,19 +42,9 @@ public class ChangeInfoRESTController implements ChangeInfo {
 	}
 
 	private void validarCampos(String email, String password, String newPassword) {
-//		if (email.trim().isEmpty())
-//			throw ErrorFactory.getError(Errors.REQUIRED_EMAIL);		
-//		else if (password.trim().isEmpty() || newPassword.trim().isEmpty())
-//			throw ErrorFactory.getError(Errors.REQUIRED_PASSWORD);
 		Assert.isEmailEmpty(email);
 		Assert.isPasswordEmpty(password);
 		Assert.isPasswordEmpty(newPassword);
-	}
-
-	private void validarPassword(String password, Participant participant) {
-//		if (!password.equals(passwordParticipant))
-//			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
-		Assert.isPasswordCorrect(password, participant);
 	}
 
 	@ExceptionHandler(ErrorResponse.class)

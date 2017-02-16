@@ -35,24 +35,13 @@ public class GetParticipantInfoHTMLController {
 		
 		Assert.isEmailEmpty(email);
 		Assert.isEmailValid(email);
-
-//		if (!Utilidades.validarCorreo(email)) {// Se lanza este error cuan
-//			throw ErrorFactory.getError(Errors.WRONG_EMAIL_STYLE);
-//		}
+		Assert.isPasswordEmpty(password);
 
 		Participant participant = getParticipant.getParticipant(email);
 		
 		Assert.isParticipantNull(participant);
-
-//		if (participant == null) {
-//			throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
-//		}
 		
 		Assert.isPasswordCorrect(password, participant);
-		
-//		if (!password.equals(participant.getPassword())) {
-//			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
-//		}
 
 		/*
 		 * Añadimos la información al modelo, para que se muestre en la pagina
@@ -77,5 +66,4 @@ public class GetParticipantInfoHTMLController {
 		
 		return "error";
 	}
-
 }

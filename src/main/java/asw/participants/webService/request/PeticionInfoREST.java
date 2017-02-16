@@ -16,6 +16,11 @@ public class PeticionInfoREST {
 	public PeticionInfoREST() {
 
 	}
+	
+	public PeticionInfoREST(String login,String password){
+		this.login = login;
+		this.password = password;
+	}
 
 	public String getLogin() {
 		return login;
