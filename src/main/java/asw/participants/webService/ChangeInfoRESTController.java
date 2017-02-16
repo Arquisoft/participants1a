@@ -1,5 +1,7 @@
 package asw.participants.webService;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import asw.dbManagement.GetParticipant;
 import asw.dbManagement.UpdateInfo;
 import asw.dbManagement.model.Participant;
 import asw.participants.ChangeInfo;
@@ -19,32 +20,30 @@ import asw.participants.webService.responses.errors.ErrorResponse;
 @RestController
 @RequestMapping("user")
 public class ChangeInfoRESTController implements ChangeInfo {
-	
-	@Autowired
-	private GetParticipant getParticipant;
-	
+
 	@Autowired
 	private UpdateInfo updateInfo;
 
 	@Override
-	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
-	public String changeInfo(@RequestParam String email, @RequestParam String password,
-			@RequestParam String newPassword) {
-
-		validarCampos(email, password, newPassword);
+	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST, headers = "Accept=application/json", produces = {
+			"application/json" })
+	public String changeInfo(HttpSession session, @RequestParam String password, @RequestParam String newPassword,
+			@RequestParam String repeatNewPassword) {
+		camposNoVacios(password, newPassword, repeatNewPassword);
+		Assert.isSamePassword(newPassword, repeatNewPassword);
 		
-		Participant p = getParticipant.getParticipant(email);
+		Participant p = (Participant) session.getAttribute("participant");
 		Assert.isPasswordCorrect(password, p);
 
 		updateInfo.updateInfo(p, password, newPassword);
-		
-		return "{\"Resultado\": \"Datos actualizados correctamente\"}";
+
+		return "{\"Resultado\": \"Contraseña actualizada correctamente\"}";
 	}
 
-	private void validarCampos(String email, String password, String newPassword) {
-		Assert.isEmailEmpty(email);
+	private void camposNoVacios(String password, String newPassword, String repeatNewPassword) {
 		Assert.isPasswordEmpty(password);
 		Assert.isPasswordEmpty(newPassword);
+		Assert.isPasswordEmpty(repeatNewPassword);
 	}
 
 	@ExceptionHandler(ErrorResponse.class)

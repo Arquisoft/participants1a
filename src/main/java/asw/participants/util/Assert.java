@@ -60,5 +60,12 @@ public class Assert {
 		}
 		return true;
 	}
+	
+	public static boolean isSamePassword(String password, String password2){
+		if (!password.equals(password2)) {
+			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
+		}
+		return true;
+	}
 
 }

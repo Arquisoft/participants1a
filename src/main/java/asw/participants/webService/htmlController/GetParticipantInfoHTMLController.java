@@ -1,5 +1,7 @@
 package asw.participants.webService.htmlController;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -31,13 +33,15 @@ public class GetParticipantInfoHTMLController {
 
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String getLogin(@RequestParam String email, @RequestParam String password, Model model) {
+	public String getLogin(HttpSession session, @RequestParam String email, @RequestParam String password, Model model) {
 		
 		Assert.isEmailEmpty(email);
 		Assert.isEmailValid(email);
 		Assert.isPasswordEmpty(password);
 
+		// Guardo el participant en la sesion
 		Participant participant = getParticipant.getParticipant(email);
+		session.setAttribute("participant", participant);
 		
 		Assert.isParticipantNull(participant);
 		
