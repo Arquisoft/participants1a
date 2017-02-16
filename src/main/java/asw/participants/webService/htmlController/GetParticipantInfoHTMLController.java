@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import asw.dbManagement.GetParticipant;
 import asw.dbManagement.model.Participant;
-import asw.participants.factory.ErrorFactory;
-import asw.participants.factory.ErrorFactory.Errors;
+import asw.participants.util.Assert;
 import asw.participants.util.Utilidades;
 import asw.participants.webService.responses.errors.ErrorResponse;
 
@@ -33,19 +32,27 @@ public class GetParticipantInfoHTMLController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String getLogin(@RequestParam String email, @RequestParam String password, Model model) {
+		
+		Assert.isEmailEmpty(email);
+		Assert.isEmailValid(email);
 
-		// if(!utilidades.validarCorreo(email)){//Se lanza este error cuan
-		// throw ErrorFactory.getError(Errors.WRONG_EMAIL_STYLE);
-		// }
+//		if (!Utilidades.validarCorreo(email)) {// Se lanza este error cuan
+//			throw ErrorFactory.getError(Errors.WRONG_EMAIL_STYLE);
+//		}
 
 		Participant participant = getParticipant.getParticipant(email);
+		
+		Assert.isParticipantNull(participant);
 
-		if (participant == null) {
-			throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
-		}
-		if (!password.equals(participant.getPassword())) {
-			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
-		}
+//		if (participant == null) {
+//			throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
+//		}
+		
+		Assert.isPasswordCorrect(password, participant);
+		
+//		if (!password.equals(participant.getPassword())) {
+//			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
+//		}
 
 		/*
 		 * Añadimos la información al modelo, para que se muestre en la pagina

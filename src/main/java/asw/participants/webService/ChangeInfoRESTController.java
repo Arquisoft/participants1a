@@ -13,8 +13,7 @@ import asw.dbManagement.GetParticipant;
 import asw.dbManagement.UpdateInfo;
 import asw.dbManagement.model.Participant;
 import asw.participants.ChangeInfo;
-import asw.participants.factory.ErrorFactory;
-import asw.participants.factory.ErrorFactory.Errors;
+import asw.participants.util.Assert;
 import asw.participants.webService.responses.errors.ErrorResponse;
 
 @RestController
@@ -35,7 +34,7 @@ public class ChangeInfoRESTController implements ChangeInfo {
 		validarCampos(email, password, newPassword);
 		
 		Participant p = getParticipant.getParticipant(email);
-		validarPassword(password, p.getPassword());
+		validarPassword(password, p);
 
 		updateInfo.updateInfo(p, password, newPassword);
 		
@@ -43,15 +42,19 @@ public class ChangeInfoRESTController implements ChangeInfo {
 	}
 
 	private void validarCampos(String email, String password, String newPassword) {
-		if (email.trim().isEmpty())
-			throw ErrorFactory.getError(Errors.REQUIRED_EMAIL);
-		else if (password.trim().isEmpty() || newPassword.trim().isEmpty())
-			throw ErrorFactory.getError(Errors.REQUIRED_PASSWORD);
+//		if (email.trim().isEmpty())
+//			throw ErrorFactory.getError(Errors.REQUIRED_EMAIL);		
+//		else if (password.trim().isEmpty() || newPassword.trim().isEmpty())
+//			throw ErrorFactory.getError(Errors.REQUIRED_PASSWORD);
+		Assert.isEmailEmpty(email);
+		Assert.isPasswordEmpty(password);
+		Assert.isPasswordEmpty(newPassword);
 	}
 
-	private void validarPassword(String password, String passwordParticipant) {
-		if (!password.equals(passwordParticipant))
-			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
+	private void validarPassword(String password, Participant participant) {
+//		if (!password.equals(passwordParticipant))
+//			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
+		Assert.isPasswordCorrect(password, participant);
 	}
 
 	@ExceptionHandler(ErrorResponse.class)

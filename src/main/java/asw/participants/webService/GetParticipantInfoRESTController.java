@@ -13,6 +13,7 @@ import asw.dbManagement.model.Participant;
 import asw.participants.GetParticipantInfo;
 import asw.participants.factory.ErrorFactory;
 import asw.participants.factory.ErrorFactory.Errors;
+import asw.participants.util.Assert;
 import asw.participants.webService.request.PeticionInfoREST;
 import asw.participants.webService.responses.RespuestaInfoREST;
 
@@ -33,9 +34,13 @@ public class GetParticipantInfoRESTController implements GetParticipantInfo {
 		// throw ErrorFactory.getError(Errors.WRONG_EMAIL_STYLE);
 		// }
 
-		if (participant == null) {
-			throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
-		}
+		Assert.isParticipantNull(participant);
+//		if (participant == null) {
+//			throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
+//		}
+		
+		Assert.isPasswordCorrect(peticion.getPassword(), participant);
+		
 		if (!peticion.getPassword().equals(participant.getPassword())) {
 			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
 		}
