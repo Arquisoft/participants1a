@@ -18,6 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import asw.Application;
+
 import asw.participants.webService.request.PeticionInfoREST;
 
 @SuppressWarnings("deprecation")
