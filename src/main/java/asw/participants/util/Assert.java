@@ -35,11 +35,10 @@ public class Assert {
 		if (mailSplit.length != 2) {
 			throw ErrorFactory.getError(Errors.WRONG_EMAIL_STYLE);
 		}
-		mailSplit = email.split(".");
+		mailSplit = email.split("\\.");
 		if (mailSplit.length != 2 || mailSplit[0].length() == 0 || mailSplit[1].length() == 0) {
 			throw ErrorFactory.getError(Errors.WRONG_EMAIL_STYLE);
 		}
-
 		return true;
 	}
 	
