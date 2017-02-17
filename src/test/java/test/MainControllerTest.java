@@ -1,6 +1,8 @@
 package test;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 import java.net.URL;
@@ -8,6 +10,7 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -18,7 +21,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import asw.Application;
-
+import asw.dbManagement.GetParticipant;
+import asw.dbManagement.model.Participant;
 import asw.participants.webService.request.PeticionInfoREST;
 
 @SuppressWarnings("deprecation")
@@ -33,11 +37,25 @@ public class MainControllerTest {
 
 	private URL base;
 	private RestTemplate template;
+	
+	@Autowired 
+	private GetParticipant getParticipant;
 
 	@Before
 	public void setUp() throws Exception {
 		this.base = new URL("http://localhost:" + port + "/");
 		template = new TestRestTemplate();
+	}
+	
+	@Test
+	public void domainModelTest(){
+		Participant participant1 = getParticipant.getParticipant("paco@hotmail.com");
+		Participant participant2 = getParticipant.getParticipant("pac@hotmail.com");
+		assertFalse(participant1.equals(participant2));
+		
+		assertEquals(participant1.toString(), "Participant [nombre=" + participant1.getNombre() + ", apellidos=" + participant1.getApellidos() 
+		+ ", fechaNacimiento=" + participant1.getFechaNacimiento()+ ", email=" + participant1.getEmail() + ", DNI=" + participant1.getDNI() 
+		+ ", direccion=" + participant1.getDireccion() + ", nacionalidad=" + participant1.getNacionalidad()	+ "]");
 	}
 
 	@Test

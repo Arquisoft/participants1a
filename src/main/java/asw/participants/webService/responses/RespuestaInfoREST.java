@@ -11,10 +11,6 @@ public class RespuestaInfoREST {
 	private String ID;
 	private String email;
 	
-	public RespuestaInfoREST(){
-		
-	}
-	
 	public RespuestaInfoREST(Participant participant){
 		setFirstName(participant.getNombre());
 		setLastName(participant.getApellidos());
