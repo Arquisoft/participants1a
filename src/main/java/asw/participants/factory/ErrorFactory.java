@@ -2,6 +2,7 @@ package asw.participants.factory;
 
 import asw.participants.webService.responses.errors.ErrorResponse;
 import asw.participants.webService.responses.errors.IncorrectPasswordErrorResponse;
+import asw.participants.webService.responses.errors.PasswordDoNotMatchErrorResponse;
 import asw.participants.webService.responses.errors.RequiredEmailErrorResponse;
 import asw.participants.webService.responses.errors.RequiredPasswordErrorResponse;
 import asw.participants.webService.responses.errors.UnknownErrorResponse;
@@ -16,7 +17,8 @@ public class ErrorFactory {
 		REQUIRED_EMAIL,
 		REQUIRED_PASSWORD,
 		USER_NOT_FOUND,
-		WRONG_EMAIL_STYLE
+		WRONG_EMAIL_STYLE,
+		INCORRECT_PASSWORD_DO_NOT_MATCH
 	}
 
 	// Generar Constructor privado no queremos que se pueda tener varias
@@ -36,6 +38,8 @@ public class ErrorFactory {
 			return new UserNotFoundResponse();
 		case WRONG_EMAIL_STYLE:
 			return new WrongEmailStyleErrorResponse();
+		case INCORRECT_PASSWORD_DO_NOT_MATCH:
+			return new PasswordDoNotMatchErrorResponse();
 		default:// en caso de no conocer el error.
 			return new UnknownErrorResponse();
 		}
