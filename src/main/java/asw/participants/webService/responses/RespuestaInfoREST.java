@@ -16,11 +16,16 @@ public class RespuestaInfoREST {
 	}
 	
 	public RespuestaInfoREST(Participant participant){
-		this.firstName = participant.getNombre();
-		this.lastName = participant.getApellidos();
-		this.edad = Utilidades.getEdad(participant.getFechaNacimiento());
-		this.ID = participant.getDNI();
-		this.email = participant.getEmail();
+		setFirstName(participant.getNombre());
+		setLastName(participant.getApellidos());
+		setEdad(Utilidades.getEdad(participant.getFechaNacimiento()));
+		setID(participant.getDNI());
+		setEmail(participant.getEmail());
+//		this.firstName = participant.getNombre();
+//		this.lastName = participant.getApellidos();
+//		this.edad = Utilidades.getEdad(participant.getFechaNacimiento());
+//		this.ID = participant.getDNI();
+//		this.email = participant.getEmail();
 	}
 
 	public String getFirstName() {
