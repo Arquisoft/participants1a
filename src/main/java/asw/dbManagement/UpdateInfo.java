@@ -6,5 +6,7 @@ public interface UpdateInfo {
 	/**
 	 * Permite la solicitud de cambio de contraseña
 	 */
-	public void updateInfo(Participant p, String password, String newPassword);
+	public void updatePassword(Participant participant, String password, String newPassword);
+	
+	public void updateEmail(Participant participant, String email);
 }

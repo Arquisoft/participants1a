@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import asw.participants.webService.responses.errors.ErrorResponse;
@@ -15,8 +14,7 @@ import asw.participants.webService.responses.errors.ErrorResponse;
 public class ChangeInfoHTMLController {
 
 	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
-	public String changeInfo(@RequestParam String email, Model model) {
-		model.addAttribute("email", email);
+	public String changeInfo() {
 		return "changeInfo";
 	}
 

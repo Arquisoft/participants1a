@@ -18,16 +18,16 @@ import asw.participants.util.Assert;
 import asw.participants.webService.responses.errors.ErrorResponse;
 
 @RestController
-@RequestMapping("user")
+//@RequestMapping("user")
 public class ChangeInfoRESTController implements ChangeInfo {
 
 	@Autowired
 	private UpdateInfo updateInfo;
 
 	@Override
-	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST, headers = "Accept=application/json", produces = {
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, headers = {"Accept=application/json"}, produces = {
 			"application/json" })
-	public String changeInfo(HttpSession session, @RequestParam String password, @RequestParam String newPassword,
+	public String changePassword(HttpSession session, @RequestParam String password, @RequestParam String newPassword,
 			@RequestParam String repeatNewPassword) {
 		camposNoVacios(password, newPassword, repeatNewPassword);
 		Assert.isSamePassword(newPassword, repeatNewPassword);
@@ -35,9 +35,22 @@ public class ChangeInfoRESTController implements ChangeInfo {
 		Participant p = (Participant) session.getAttribute("participant");
 		Assert.isPasswordCorrect(password, p);
 
-		updateInfo.updateInfo(p, password, newPassword);
+		updateInfo.updatePassword(p, password, newPassword);
 
 		return "{\"Resultado\": \"Contraseña actualizada correctamente\"}";
+	}
+	
+	@Override
+	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST, headers = {"Accept=application/json"}, produces = {
+			"application/json" })
+	public String changeEmail(HttpSession session, @RequestParam String email) {
+		Assert.isEmailEmpty(email);
+		Assert.isEmailValid(email);
+		
+		Participant p = (Participant) session.getAttribute("participant");
+		updateInfo.updateEmail(p, email);
+		
+		return "{\"Resultado\": \"Email actualizado correctamente\"}";
 	}
 
 	private void camposNoVacios(String password, String newPassword, String repeatNewPassword) {
@@ -51,4 +64,5 @@ public class ChangeInfoRESTController implements ChangeInfo {
 	public String handleErrorResponses(ErrorResponse error) {
 		return error.getMessageJSONFormat();
 	}
+
 }

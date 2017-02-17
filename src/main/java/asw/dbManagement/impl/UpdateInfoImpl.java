@@ -18,7 +18,7 @@ public class UpdateInfoImpl implements UpdateInfo {
 	}
 	
 	@Override
-	public void updateInfo(Participant participant, String password, String newPassword) {
+	public void updatePassword(Participant participant, String password, String newPassword) {
 		
 		if (password != null && newPassword != null && !(password.equals(newPassword))
 				&& participant.getPassword().equals(password)) {
@@ -26,6 +26,14 @@ public class UpdateInfoImpl implements UpdateInfo {
 			this.repository.save(participant);
 		}
 		
+	}
+
+	@Override
+	public void updateEmail(Participant participant, String email) {
+		if(email != null){
+			participant.setEmail(email);
+			this.repository.save(participant);
+		}
 	}
 
 }
