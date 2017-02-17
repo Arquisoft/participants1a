@@ -51,7 +51,13 @@ public class MainControllerTest {
 	public void domainModelTest(){
 		Participant participant1 = getParticipant.getParticipant("paco@hotmail.com");
 		Participant participant2 = getParticipant.getParticipant("pac@hotmail.com");
+		Participant participant3 =  getParticipant.getParticipant("paco@hotmail.com");
+		//participant2 = null
 		assertFalse(participant1.equals(participant2));
+		//Objeto que no es de la misma clase
+		assertFalse(participant1.equals(4));
+		//Son iguales
+		participant1.equals(participant3);
 		
 		assertEquals(participant1.toString(), "Participant [nombre=" + participant1.getNombre() + ", apellidos=" + participant1.getApellidos() 
 		+ ", fechaNacimiento=" + participant1.getFechaNacimiento()+ ", email=" + participant1.getEmail() + ", DNI=" + participant1.getDNI() 
