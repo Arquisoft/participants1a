@@ -102,16 +102,16 @@ public class MainControllerTest {
 		response = template.postForEntity(userURI, new PeticionInfoREST("", ""), String.class);
 		assertThat(response.getBody(), equalTo(emptyEmail));
 
-		response = template.postForEntity(userURI, new PeticionInfoREST("", ""), String.class);
+		response = template.postForEntity(userURI, new PeticionInfoREST("", "1223"), String.class);
 		assertThat(response.getBody(), equalTo(emptyEmail));
 
-		response = template.postForEntity(userURI, new PeticionInfoREST("", ""), String.class);
+		response = template.postForEntity(userURI, new PeticionInfoREST("", "iewgs"), String.class);
 		assertThat(response.getBody(), equalTo(emptyEmail));
 
-		response = template.postForEntity(userURI, new PeticionInfoREST("", ""), String.class);
+		response = template.postForEntity(userURI, new PeticionInfoREST("   ", ""), String.class);
 		assertThat(response.getBody(), equalTo(emptyEmail));
 	}
-	
+
 	@Test
 	public void invalidEmail() {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
@@ -129,9 +129,9 @@ public class MainControllerTest {
 		response = template.postForEntity(userURI, new PeticionInfoREST("sjhwuwsc", ""), String.class);
 		assertThat(response.getBody(), equalTo(wrongEmailStyle));
 	}
-	
+
 	@Test
-	public void emptyPassword(){
+	public void emptyPassword() {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/user";
 		String emptyPassword = "{\"reason\": \"User password is required\"}";
@@ -147,5 +147,114 @@ public class MainControllerTest {
 
 		response = template.postForEntity(userURI, new PeticionInfoREST("isabel@gmail.com", ""), String.class);
 		assertThat(response.getBody(), equalTo(emptyPassword));
+	}
+
+//	@Test
+//	public void emailRequiredChange() {
+//		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+//		String userURI = base.toString() + "/user/changeInfo";
+//		String emptyEmail = "{\"reason\": \"User email is required\"}";
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("","", ""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyEmail));
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("","sswde", "1223"), String.class);
+//		assertThat(response.getBody(), equalTo(emptyEmail));
+//
+//		response = template.postForEntity(userURI,new PeticionCambiarPassword("","", "cshiwcs"), String.class);
+//		assertThat(response.getBody(), equalTo(emptyEmail));
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("   ","cheuc", "   "), String.class);
+//		assertThat(response.getBody(), equalTo(emptyEmail));
+//	}
+
+//	@Test
+//	public void emptyPasswordChange() {
+//		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+//		String userURI = base.toString() + "/user";
+//		String emptyPassword = "{\"reason\": \"User password is required\"}";
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("paco@hotmail.com", "",""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyPassword));
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("pepe@gmail.com", "",""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyPassword));
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("carmen@yahoo.com", "",""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyPassword));
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("isabel@gmail.com", "",""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyPassword));
+//	}
+	
+//	@Test
+//	public void emptyNewPasswordChange() {
+//		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+//		String userURI = base.toString() + "/user";
+//		String emptyPassword = "{\"reason\": \"User password is required\"}";
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("paco@hotmail.com", "123456",""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyPassword));
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("pepe@gmail.com", "123456",""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyPassword));
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("carmen@yahoo.com", "123456",""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyPassword));
+//
+//		response = template.postForEntity(userURI, new PeticionCambiarPassword("isabel@gmail.com", "123456",""), String.class);
+//		assertThat(response.getBody(), equalTo(emptyPassword));
+//	}
+	
+	@Test
+	public void testHtmlController() {
+		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+		String userURI = base.toString() + "/";
+
+		response = template.getForEntity(userURI, String.class);
+		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", ""),
+				equalTo(new String("<!DOCTYPEHTML><html><head><metacharset=\"UTF-8\"/>"
+						+ "<title>Login</title></head><body><h1>Login</h1><formmethod=\"POST\"action=\"login\">"
+						+ "<labelfor=\"email\">Usuario:</label><inputtype=\"text\"id=\"email\"name=\"email\"/>"
+						+ "<br/><labelfor=\"password\">Contraseña:</label><inputtype=\"password\"id=\"password\"name="
+						+ "\"password\"/><br/><buttontype=\"submit\"id=\"login\">Entrar</button></form></body></html>")
+								.replace(" ", "")));
+	}
+
+	//para hacer el request y cambiar la informacion.
+	public class PeticionCambiarPassword {
+		private String email;
+		private String password;
+		private String newPassword;
+
+		public PeticionCambiarPassword(String email, String password, String newPassword) {
+			this.email = email;
+			this.password = password;
+			this.setNewPassword(newPassword);
+		}
+
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		public String getNewPassword() {
+			return newPassword;
+		}
+
+		public void setNewPassword(String newPassword) {
+			this.newPassword = newPassword;
+		}
 	}
 }

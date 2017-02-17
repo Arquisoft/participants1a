@@ -3,25 +3,7 @@ package asw.participants.webService.responses;
 import asw.dbManagement.model.Participant;
 import asw.participants.util.Utilidades;
 
-public class RespuestaInfoREST {
-	
-	/*
-	 * 
-	 * private String nombre;
-	private String apellidos;
-	private String password;
-	private Date fechaNacimiento;
-	@Column(unique = true)
-	private String email;
-	@Column(unique = true)
-	private String DNI;
-	private String direccion;
-	private String nacionalidad;
-	
-	 * 
-	 * 
-	 */
-	
+public class RespuestaInfoREST {	
 	
 	private String firstName;
 	private String lastName;
