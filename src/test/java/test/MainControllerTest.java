@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 
@@ -37,8 +38,8 @@ public class MainControllerTest {
 
 	private URL base;
 	private RestTemplate template;
-	
-	@Autowired 
+
+	@Autowired
 	private GetParticipant getParticipant;
 
 	@Before
@@ -46,22 +47,35 @@ public class MainControllerTest {
 		this.base = new URL("http://localhost:" + port + "/");
 		template = new TestRestTemplate();
 	}
-	
+
 	@Test
-	public void domainModelTest(){
+	public void domainModelEqualsTest() {
 		Participant participant1 = getParticipant.getParticipant("paco@hotmail.com");
 		Participant participant2 = getParticipant.getParticipant("pac@hotmail.com");
-		Participant participant3 =  getParticipant.getParticipant("paco@hotmail.com");
-		//participant2 = null
+		Participant participant3 = getParticipant.getParticipant("paco@hotmail.com");
+		Participant participant4 = getParticipant.getParticipant("pepe@gmail.com");
 		assertFalse(participant1.equals(participant2));
-		//Objeto que no es de la misma clase
 		assertFalse(participant1.equals(4));
-		//Son iguales
-		participant1.equals(participant3);
-		
-		assertEquals(participant1.toString(), "Participant [nombre=" + participant1.getNombre() + ", apellidos=" + participant1.getApellidos() 
-		+ ", fechaNacimiento=" + participant1.getFechaNacimiento()+ ", email=" + participant1.getEmail() + ", DNI=" + participant1.getDNI() 
-		+ ", direccion=" + participant1.getDireccion() + ", nacionalidad=" + participant1.getNacionalidad()	+ "]");
+		assertTrue(participant1.equals(participant3));
+		assertTrue(participant1.equals(participant1));
+		assertFalse(participant1.equals(participant4));
+	}
+
+	@Test
+	public void domainModelToString() {
+		Participant participant1 = getParticipant.getParticipant("paco@hotmail.com");
+		assertEquals(participant1.toString(),
+				"Participant [nombre=" + participant1.getNombre() + ", apellidos=" + participant1.getApellidos()
+						+ ", fechaNacimiento=" + participant1.getFechaNacimiento() + ", email="
+						+ participant1.getEmail() + ", DNI=" + participant1.getDNI() + ", direccion="
+						+ participant1.getDireccion() + ", nacionalidad=" + participant1.getNacionalidad() + "]");
+	}
+
+	@Test
+	public void domainModelHashCodeTest() {
+		Participant participant1 = getParticipant.getParticipant("paco@hotmail.com");
+		Participant participant3 = getParticipant.getParticipant("paco@hotmail.com");
+		assertEquals(participant1.hashCode(), participant3.hashCode());
 	}
 
 	@Test
@@ -174,62 +188,72 @@ public class MainControllerTest {
 	}
 
 //	@Test
-//	public void emailRequiredChange() {
-//		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
-//		String userURI = base.toString() + "/user/changeInfo";
-//		String emptyEmail = "{\"reason\": \"User email is required\"}";
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("","", ""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyEmail));
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("","sswde", "1223"), String.class);
-//		assertThat(response.getBody(), equalTo(emptyEmail));
-//
-//		response = template.postForEntity(userURI,new PeticionCambiarPassword("","", "cshiwcs"), String.class);
-//		assertThat(response.getBody(), equalTo(emptyEmail));
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("   ","cheuc", "   "), String.class);
-//		assertThat(response.getBody(), equalTo(emptyEmail));
-//	}
+//	 public void emailRequiredChange() {
+//	 ResponseEntity<String> response = template.getForEntity(base.toString(),String.class);
+//	 String userURI = base.toString() + "/changeEmail";
+//	 String emptyEmail = "{\"reason\": \"User email is required\"}";
+//	
+//	 response = template.postForEntity(userURI, new	 PeticionCambiarEmail(" "), String.class);
+//	 assertThat(response.getBody(), equalTo(emptyEmail));
+//	
+//	 response = template.postForEntity(userURI, new	 PeticionCambiarEmail(""), String.class);
+//	 assertThat(response.getBody(), equalTo(emptyEmail));
+//	
+//	 response = template.postForEntity(userURI,new	 PeticionCambiarEmail(""), String.class);
+//	 assertThat(response.getBody(), equalTo(emptyEmail));
+//	
+//	 response = template.postForEntity(userURI, new PeticionCambiarEmail(" "), String.class);
+//	 assertThat(response.getBody(), equalTo(emptyEmail));
+//	 }
 
-//	@Test
-//	public void emptyPasswordChange() {
-//		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
-//		String userURI = base.toString() + "/user";
-//		String emptyPassword = "{\"reason\": \"User password is required\"}";
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("paco@hotmail.com", "",""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyPassword));
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("pepe@gmail.com", "",""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyPassword));
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("carmen@yahoo.com", "",""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyPassword));
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("isabel@gmail.com", "",""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyPassword));
-//	}
-	
-//	@Test
-//	public void emptyNewPasswordChange() {
-//		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
-//		String userURI = base.toString() + "/user";
-//		String emptyPassword = "{\"reason\": \"User password is required\"}";
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("paco@hotmail.com", "123456",""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyPassword));
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("pepe@gmail.com", "123456",""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyPassword));
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("carmen@yahoo.com", "123456",""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyPassword));
-//
-//		response = template.postForEntity(userURI, new PeticionCambiarPassword("isabel@gmail.com", "123456",""), String.class);
-//		assertThat(response.getBody(), equalTo(emptyPassword));
-//	}
-	
+	// @Test
+	// public void emptyPasswordChange() {
+	// ResponseEntity<String> response = template.getForEntity(base.toString(),
+	// String.class);
+	// String userURI = base.toString() + "/user";
+	// String emptyPassword = "{\"reason\": \"User password is required\"}";
+	//
+	// response = template.postForEntity(userURI, new
+	// PeticionCambiarPassword("paco@hotmail.com", "",""), String.class);
+	// assertThat(response.getBody(), equalTo(emptyPassword));
+	//
+	// response = template.postForEntity(userURI, new
+	// PeticionCambiarPassword("pepe@gmail.com", "",""), String.class);
+	// assertThat(response.getBody(), equalTo(emptyPassword));
+	//
+	// response = template.postForEntity(userURI, new
+	// PeticionCambiarPassword("carmen@yahoo.com", "",""), String.class);
+	// assertThat(response.getBody(), equalTo(emptyPassword));
+	//
+	// response = template.postForEntity(userURI, new
+	// PeticionCambiarPassword("isabel@gmail.com", "",""), String.class);
+	// assertThat(response.getBody(), equalTo(emptyPassword));
+	// }
+
+	// @Test
+	// public void emptyNewPasswordChange() {
+	// ResponseEntity<String> response = template.getForEntity(base.toString(),
+	// String.class);
+	// String userURI = base.toString() + "/user";
+	// String emptyPassword = "{\"reason\": \"User password is required\"}";
+	//
+	// response = template.postForEntity(userURI, new
+	// PeticionCambiarPassword("paco@hotmail.com", "123456",""), String.class);
+	// assertThat(response.getBody(), equalTo(emptyPassword));
+	//
+	// response = template.postForEntity(userURI, new
+	// PeticionCambiarPassword("pepe@gmail.com", "123456",""), String.class);
+	// assertThat(response.getBody(), equalTo(emptyPassword));
+	//
+	// response = template.postForEntity(userURI, new
+	// PeticionCambiarPassword("carmen@yahoo.com", "123456",""), String.class);
+	// assertThat(response.getBody(), equalTo(emptyPassword));
+	//
+	// response = template.postForEntity(userURI, new
+	// PeticionCambiarPassword("isabel@gmail.com", "123456",""), String.class);
+	// assertThat(response.getBody(), equalTo(emptyPassword));
+	// }
+
 	@Test
 	public void testHtmlController() {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
@@ -245,16 +269,12 @@ public class MainControllerTest {
 								.replace(" ", "")));
 	}
 
-	//para hacer el request y cambiar la informacion.
-	public class PeticionCambiarPassword {
+	// para hacer el request y cambiar la informacion.
+	public class PeticionCambiarEmail {
 		private String email;
-		private String password;
-		private String newPassword;
 
-		public PeticionCambiarPassword(String email, String password, String newPassword) {
+		public PeticionCambiarEmail(String email) {
 			this.email = email;
-			this.password = password;
-			this.setNewPassword(newPassword);
 		}
 
 		public String getEmail() {
@@ -263,22 +283,6 @@ public class MainControllerTest {
 
 		public void setEmail(String email) {
 			this.email = email;
-		}
-
-		public String getPassword() {
-			return password;
-		}
-
-		public void setPassword(String password) {
-			this.password = password;
-		}
-
-		public String getNewPassword() {
-			return newPassword;
-		}
-
-		public void setNewPassword(String newPassword) {
-			this.newPassword = newPassword;
 		}
 	}
 }
