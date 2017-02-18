@@ -13,10 +13,12 @@ import javax.persistence.Table;
 public class Participant {
 
 	
+	// Id generado automáticamente para diferenciar cada uno (para mapear)
 	@Id
 	@GeneratedValue
 	private Long id;
 	
+	// Atributos del participante
 	private String nombre;
 	private String apellidos;
 	private String password;
@@ -29,9 +31,22 @@ public class Participant {
 	private String nacionalidad;
 	
 	
-	
+	/**
+	 * Constructor vacío (ya que es para mapear)
+	 */
 	Participant() { }
 
+	/**
+	 * Constructor
+	 * @param nombre
+	 * @param apellidos
+	 * @param password
+	 * @param fechaNacimiento
+	 * @param email
+	 * @param dNI
+	 * @param direccion
+	 * @param nacionalidad
+	 */
 	public Participant(String nombre, String apellidos, String password, Date fechaNacimiento, 
 			String email, String dNI, String direccion, String nacionalidad) {
 		super();
