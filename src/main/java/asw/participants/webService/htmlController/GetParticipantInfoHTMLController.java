@@ -39,25 +39,14 @@ public class GetParticipantInfoHTMLController {
 		Assert.isEmailValid(email);
 		Assert.isPasswordEmpty(password);
 
-		// Guardo el participant en la sesion
 		Participant participant = getParticipant.getParticipant(email);
-		session.setAttribute("participant", participant);
 		
 		Assert.isParticipantNull(participant);
-		
 		Assert.isPasswordCorrect(password, participant);
 
-		/*
-		 * Añadimos la información al modelo, para que se muestre en la pagina
-		 * html: datosParticipant
-		 */
-		model.addAttribute("name", participant.getNombre());
-		model.addAttribute("secondName", participant.getApellidos());
-		model.addAttribute("age", Utilidades.getEdad(participant.getFechaNacimiento()));
-		model.addAttribute("adress", participant.getDireccion());
-		model.addAttribute("email", participant.getEmail());
-		model.addAttribute("dni", participant.getDNI());
-
+		session.setAttribute("participant", participant);
+		session.setAttribute("edad", Utilidades.getEdad(participant.getFechaNacimiento()));
+		
 		return "datosParticipant";
 
 	}

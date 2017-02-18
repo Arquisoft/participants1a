@@ -7,29 +7,19 @@
 </head>
 <body>
 <h1>Datos personales</h1>
-<form method="POST" action="/changeEmail" >
-	<label for="email">Correo: </label>
-	<input type="text" id="email" name="email" th:value="${email}" />
-	<input type="submit" name="cambiarEmail" value="Cambiar email"/>
+	<p>Correo: <span th:text="${session.participant.email}"></span></p>
+	<p>Nombre: <span th:text="${session.participant.nombre}"></span></p>
+	<p>Apellidos: <span th:text="${session.participant.apellidos}"></span></p>
+	<p>DNI: <span th:text="${session.participant.DNI}"></span></p>
+	<p>Edad: <span th:text="${session.edad}"></span></p>
+	<p>Direccion: <span th:text="${session.participant.direccion}"></span></p>
+	
+	<i><span th:if="${info != null}" th:text="${info}">Info</span></i>
+	
 	<br/>
-	<label for="name">Nombre: </label>
-	<input type="text" id="name" name="name" th:value="${name}" disabled="disabled"/>
 	<br/>
-	<label for="secondName">Apellidos: </label>
-	<input type="text" id="secondName" name="secondName"  th:value="${secondName}" disabled="disabled"/>
-	<br/>
-	<label for="dni">DNI: </label>
-	<input type="text" id="dni" name="dni" th:value="${dni}" disabled="disabled"/>
-	<br/>
-	<label for="adress">Direccion: </label>
-	<input type="text" id="adress" name="adress" th:value="${adress}" disabled="disabled"/>
-	<br/>
-	<label for="age">Edad: </label>
-	<input type="text" id="age" name="age" th:value="${age}"  disabled="disabled"/>
-</form>
-<br/>
-<form method="POST" action="changeInfo" >
-	<input type="submit" name="cambiarContraseña" value="Cambiar contraseña"/>
-</form>
+	<form method="POST" action="changeInfo" >
+		<input type="submit" name="cambiarContraseña" value="Cambiar contraseña"/>
+	</form>
 </body>
 </html>

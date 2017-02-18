@@ -1,18 +1,15 @@
-package asw.participants.webService.responses;
+package asw.participants.webService.request;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "ChangeEmailResponse")
-public class ChangeEmailResponse {
+public class PeticionChangeEmailREST {
 
 	private String email;
 	private String emailNuevo;
+	
+	public PeticionChangeEmailREST() {
 
-	public ChangeEmailResponse() {
 	}
 
-	public ChangeEmailResponse(String email, String emailNuevo) {
+	public PeticionChangeEmailREST(String email, String emailNuevo) {
 		super();
 		this.email = email;
 		this.emailNuevo = emailNuevo;
@@ -22,7 +19,6 @@ public class ChangeEmailResponse {
 		return email;
 	}
 
-	@XmlElement
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -31,7 +27,6 @@ public class ChangeEmailResponse {
 		return emailNuevo;
 	}
 
-	@XmlElement
 	public void setEmailNuevo(String emailNuevo) {
 		this.emailNuevo = emailNuevo;
 	}

@@ -1,92 +1,93 @@
 package asw.participants.webService;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import asw.dbManagement.GetParticipant;
 import asw.dbManagement.UpdateInfo;
 import asw.dbManagement.model.Participant;
 import asw.participants.ChangeInfo;
 import asw.participants.util.Assert;
-import asw.participants.webService.responses.ChangeEmailResponse;
-import asw.participants.webService.responses.ChangePasswordResponse;
+import asw.participants.webService.request.PeticionChangeEmailREST;
+import asw.participants.webService.request.PeticionChangePasswordREST;
+import asw.participants.webService.responses.RespuestaChangeInfoXML;
 import asw.participants.webService.responses.errors.ErrorResponse;
 
 @RestController
-// @RequestMapping("user")
 public class ChangeInfoRESTController implements ChangeInfo {
 
+	@Autowired
+	private GetParticipant getParticipant;
 	@Autowired
 	private UpdateInfo updateInfo;
 
 	@Override
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, headers = { "Accept=application/json",
 			"Accept=application/xml" }, produces = { "application/json", "text/xml" })
-	public Object changePassword(HttpSession session, @RequestHeader(value = "Accept") String accept,
-			@RequestParam String password, @RequestParam String newPassword, @RequestParam String repeatNewPassword) {
+	public Object changePassword(@RequestHeader(value = "Accept") String accept,
+			@RequestBody(required=true) PeticionChangePasswordREST datos) {
+		String email = datos.getEmail();
+		String password = datos.getPassword();
+		String newPassword = datos.getNewPassword();
+		
 		Assert.isPasswordEmpty(password);
 		Assert.isPasswordEmpty(newPassword);
-		Assert.isPasswordEmpty(repeatNewPassword);
-		Assert.isSamePassword(newPassword, repeatNewPassword);
+		Assert.isEmailEmpty(email);
 
-		// Participant que se ha logeado antes
-		Participant p = (Participant) session.getAttribute("participant");
+		Participant p = getParticipant.getParticipant(email);
+		Assert.isParticipantNull(p);
 		Assert.isPasswordCorrect(password, p);
 
-		// Actualizo sus datos
 		updateInfo.updatePassword(p, password, newPassword);
 
-		return generatePasswordResponse(accept, password, newPassword, repeatNewPassword);
+		return generatePasswordResponse(accept, email);
 	}
 
 	@Override
 	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST, headers = {
 			"Accept=application/json", "Accept=application/xml" }, produces = { "application/json", "text/xml" })
-	public Object changeEmail(HttpSession session, @RequestHeader(value = "Accept") String accept,
-			@RequestParam String email) {
-		Assert.isEmailEmpty(email);
-		Assert.isEmailValid(email);
-
-		// Participant que se ha logeado antes
-		Participant p = (Participant) session.getAttribute("participant");
-
-		String antiguoEmail = p.getEmail();
-		Assert.isSameEmail(email, antiguoEmail);
+	public Object changeEmail(@RequestHeader(value = "Accept") String accept,
+			@RequestBody(required=true) PeticionChangeEmailREST datos) {
+		String email = datos.getEmail();
+		String nuevoEmail = datos.getEmailNuevo();
 		
-		// Actualizo sus datos
+		Assert.isEmailEmpty(email);
+		Assert.isEmailEmpty(nuevoEmail);
+		Assert.isEmailValid(email);
+		Assert.isEmailValid(nuevoEmail);
+		
+		Participant p = getParticipant.getParticipant(email);
+		Assert.isParticipantNull(p);
 		updateInfo.updateEmail(p, email);
 		
-		return generateEmailResponse(accept, antiguoEmail, email);
+		return generateEmailResponse(accept, nuevoEmail);
 	}
 	
-	private Object generatePasswordResponse(String accept, String password, String newPassword, String repeatNewPassword) {
+	private Object generateEmailResponse(String accept, String emailNuevo) {
 		if(accept.contains("application/xml"))
-			return new ChangePasswordResponse(password, newPassword, repeatNewPassword);
-		else
-			return "{\"Resultado\": \"Contraseña actualizada correctamente\"}";
-	}
-	
-	private Object generateEmailResponse(String accept, String emailNuevo, String email) {
-		if(accept.contains("application/xml"))
-			return new ChangeEmailResponse(emailNuevo, email);
+			return new RespuestaChangeInfoXML(emailNuevo, "Email actualizado correctamente");
 		else
 			return "{\"Resultado\": \"Email actualizado correctamente\"}";
+	}
+	
+	private Object generatePasswordResponse(String accept, String email) {
+		if(accept.contains("application/xml"))
+			return new RespuestaChangeInfoXML(email, "Contraseña actualizada correctamente");
+		else
+			return "{\"Resultado\": \"Contraseña actualizada correctamente\"}";
 	}
 
 	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleErrorResponses(ErrorResponse error) {
-		//PROVISIONAL, el navegador pide xml
-		// Si la cabecera HTTP "Accept" cambia deberia de devolver o XML o JSON
-		return "<reason>"+error.getMessageStringFormat()+"</reason>";
+		return error.getMessageStringFormat();
 	}
 
 }

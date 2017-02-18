@@ -38,6 +38,7 @@ public class GetParticipantInfoRESTController implements GetParticipantInfo {
 		Assert.isParticipantNull(participant);
 
 		Assert.isPasswordCorrect(peticion.getPassword(), participant);
+
 		/*
 		 * Añadimos la información al modelo, para que se muestre en la pagina
 		 * html: datosParticipant

@@ -187,24 +187,29 @@ public class MainControllerTest {
 		assertThat(response.getBody(), equalTo(emptyPassword));
 	}
 
-//	@Test
-//	 public void emailRequiredChange() {
-//	 ResponseEntity<String> response = template.getForEntity(base.toString(),String.class);
-//	 String userURI = base.toString() + "/changeEmail";
-//	 String emptyEmail = "{\"reason\": \"User email is required\"}";
-//	
-//	 response = template.postForEntity(userURI, new	 PeticionCambiarEmail(" "), String.class);
-//	 assertThat(response.getBody(), equalTo(emptyEmail));
-//	
-//	 response = template.postForEntity(userURI, new	 PeticionCambiarEmail(""), String.class);
-//	 assertThat(response.getBody(), equalTo(emptyEmail));
-//	
-//	 response = template.postForEntity(userURI,new	 PeticionCambiarEmail(""), String.class);
-//	 assertThat(response.getBody(), equalTo(emptyEmail));
-//	
-//	 response = template.postForEntity(userURI, new PeticionCambiarEmail(" "), String.class);
-//	 assertThat(response.getBody(), equalTo(emptyEmail));
-//	 }
+	// @Test
+	// public void emailRequiredChange() {
+	// ResponseEntity<String> response =
+	// template.getForEntity(base.toString(),String.class);
+	// String userURI = base.toString() + "/changeEmail";
+	// String emptyEmail = "{\"reason\": \"User email is required\"}";
+	//
+	// response = template.postForEntity(userURI, new PeticionCambiarEmail(" "),
+	// String.class);
+	// assertThat(response.getBody(), equalTo(emptyEmail));
+	//
+	// response = template.postForEntity(userURI, new PeticionCambiarEmail(""),
+	// String.class);
+	// assertThat(response.getBody(), equalTo(emptyEmail));
+	//
+	// response = template.postForEntity(userURI,new PeticionCambiarEmail(""),
+	// String.class);
+	// assertThat(response.getBody(), equalTo(emptyEmail));
+	//
+	// response = template.postForEntity(userURI, new PeticionCambiarEmail(" "),
+	// String.class);
+	// assertThat(response.getBody(), equalTo(emptyEmail));
+	// }
 
 	// @Test
 	// public void emptyPasswordChange() {
@@ -267,22 +272,5 @@ public class MainControllerTest {
 						+ "<br/><labelfor=\"password\">Contraseña:</label><inputtype=\"password\"id=\"password\"name="
 						+ "\"password\"/><br/><buttontype=\"submit\"id=\"login\">Entrar</button></form></body></html>")
 								.replace(" ", "")));
-	}
-
-	// para hacer el request y cambiar la informacion.
-	public class PeticionCambiarEmail {
-		private String email;
-
-		public PeticionCambiarEmail(String email) {
-			this.email = email;
-		}
-
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
-		}
 	}
 }
