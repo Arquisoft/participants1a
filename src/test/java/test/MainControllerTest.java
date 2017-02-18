@@ -96,10 +96,6 @@ public class MainControllerTest {
 		response = template.postForEntity(userURI, new PeticionInfoREST("carmen@yahoo.com", "123456"), String.class);
 		assertThat(response.getBody(), equalTo(
 				"{\"firstName\":\"Carmen\",\"lastName\":\"López\",\"edad\":46,\"email\":\"carmen@yahoo.com\",\"id\":\"11223344C\"}"));
-
-		response = template.postForEntity(userURI, new PeticionInfoREST("isabel@gmail.com", "123456"), String.class);
-		assertThat(response.getBody(), equalTo(
-				"{\"firstName\":\"Isabel\",\"lastName\":\"Rodríguez\",\"edad\":41,\"email\":\"isabel@gmail.com\",\"id\":\"22334455D\"}"));
 	}
 
 	@Test
@@ -447,19 +443,11 @@ public class MainControllerTest {
 	public void correctPasswordChange(){
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/changePassword";
-		String passwordIncorrect = "{\"reason\": \"Password Incorrect\"}";
+		String correctPassword = "{\"Resultado\": \"Contraseña actualizada correctamente\"}";
 
-		response = template.postForEntity(userURI, new PeticionChangePasswordREST("paco@hotmail.com", "djfhr", "djfhr"),
+		response = template.postForEntity(userURI, new PeticionChangePasswordREST("isabel@gmail.com", "123456", "djfhr"),
 				String.class);
-		assertThat(response.getBody(), equalTo(passwordIncorrect));
-
-		response = template.postForEntity(userURI, new PeticionChangePasswordREST("pepe@gmail.com", "djvhrhc", "djvhrhc"),
-				String.class);
-		assertThat(response.getBody(), equalTo(passwordIncorrect));
-
-		response = template.postForEntity(userURI, new PeticionChangePasswordREST("carmen@yahoo.com", "dkejd", "dkejd"),
-				String.class);
-		assertThat(response.getBody(), equalTo(passwordIncorrect));
+		assertThat(response.getBody(), equalTo(correctPassword));
 	}
 
 	@Test
