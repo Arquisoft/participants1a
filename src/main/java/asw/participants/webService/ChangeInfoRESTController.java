@@ -59,9 +59,10 @@ public class ChangeInfoRESTController implements ChangeInfo {
 		String nuevoEmail = datos.getEmailNuevo();
 		
 		Assert.isEmailEmpty(email);
-		Assert.isEmailEmpty(nuevoEmail);
 		Assert.isEmailValid(email);
+		Assert.isEmailEmpty(nuevoEmail);
 		Assert.isEmailValid(nuevoEmail);
+		Assert.isSameEmail(email, nuevoEmail);
 		
 		Participant p = getParticipant.getParticipant(email);
 		Assert.isParticipantNull(p);
@@ -87,7 +88,7 @@ public class ChangeInfoRESTController implements ChangeInfo {
 	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleErrorResponses(ErrorResponse error) {
-		return error.getMessageStringFormat();
+		return error.getMessageJSONFormat();
 	}
 
 }
