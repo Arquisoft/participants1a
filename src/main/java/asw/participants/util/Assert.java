@@ -63,9 +63,15 @@ public class Assert {
 	
 	public static boolean isSamePassword(String password, String password2){
 		if (!password.equals(password2)) {
-			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD_DO_NOT_MATCH);
+			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
 		}
 		return true;
 	}
 
+	public static boolean isSameEmail(String email, String email2){
+		if (email.equals(email2)) {
+			throw ErrorFactory.getError(Errors.SAME_EMAIL);
+		}
+		return true;
+	}
 }

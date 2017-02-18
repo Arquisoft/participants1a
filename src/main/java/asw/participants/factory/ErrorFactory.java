@@ -5,6 +5,7 @@ import asw.participants.webService.responses.errors.IncorrectPasswordErrorRespon
 import asw.participants.webService.responses.errors.PasswordDoNotMatchErrorResponse;
 import asw.participants.webService.responses.errors.RequiredEmailErrorResponse;
 import asw.participants.webService.responses.errors.RequiredPasswordErrorResponse;
+import asw.participants.webService.responses.errors.SameEmailErrorResponse;
 import asw.participants.webService.responses.errors.UnknownErrorResponse;
 import asw.participants.webService.responses.errors.UserNotFoundResponse;
 import asw.participants.webService.responses.errors.WrongEmailStyleErrorResponse;
@@ -18,7 +19,8 @@ public class ErrorFactory {
 		REQUIRED_PASSWORD,
 		USER_NOT_FOUND,
 		WRONG_EMAIL_STYLE,
-		INCORRECT_PASSWORD_DO_NOT_MATCH
+		INCORRECT_PASSWORD_DO_NOT_MATCH,
+		SAME_EMAIL
 	}
 
 	// Generar Constructor privado no queremos que se pueda tener varias
@@ -40,6 +42,8 @@ public class ErrorFactory {
 			return new WrongEmailStyleErrorResponse();
 		case INCORRECT_PASSWORD_DO_NOT_MATCH:
 			return new PasswordDoNotMatchErrorResponse();
+		case SAME_EMAIL:
+			return new SameEmailErrorResponse();
 		default:// en caso de no conocer el error.
 			return new UnknownErrorResponse();
 		}
