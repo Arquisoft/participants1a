@@ -18,6 +18,11 @@ public class GetParticipantImpl implements GetParticipant {
 		this.repository = repository;
 	}
 	
+	
+	/**
+	 * Método que devuelve el Participante buscado por email
+	 * Hace uso del método findByEmail (mapeador)
+	 */
 	@Override
 	public Participant getParticipant(String email) {
 		

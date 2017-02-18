@@ -17,6 +17,11 @@ public class UpdateInfoImpl implements UpdateInfo {
 		this.repository = repository;
 	}
 	
+	/**
+	 * Método que permite la actualización de la contraseña del Participante
+	 * Se comprueba que las contraseñas no estén vacías, sean distintas y 
+	 * la actual coincida con la del participante
+	 */
 	@Override
 	public void updatePassword(Participant participant, String password, String newPassword) {
 		
@@ -28,6 +33,10 @@ public class UpdateInfoImpl implements UpdateInfo {
 		
 	}
 
+	/**
+	 * Método que permite la actualización del email del Participante
+	 * Se comprueba que el email no esté vacío
+	 */
 	@Override
 	public void updateEmail(Participant participant, String email) {
 		if(email != null){
