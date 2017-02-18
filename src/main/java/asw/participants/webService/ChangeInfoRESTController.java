@@ -37,9 +37,11 @@ public class ChangeInfoRESTController implements ChangeInfo {
 		String password = datos.getPassword();
 		String newPassword = datos.getNewPassword();
 		
+		Assert.isEmailEmpty(email);
+		Assert.isEmailValid(email);
 		Assert.isPasswordEmpty(password);
 		Assert.isPasswordEmpty(newPassword);
-		Assert.isEmailEmpty(email);
+		Assert.isSamePassword(password, newPassword);	
 
 		Participant p = getParticipant.getParticipant(email);
 		Assert.isParticipantNull(p);
