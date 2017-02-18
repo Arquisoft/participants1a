@@ -56,7 +56,7 @@ public class Assert {
 	
 	public static boolean isPasswordCorrect(String password,Participant participant){
 		if (!password.equals(participant.getPassword())) {
-			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
+			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD_DO_NOT_MATCH);
 		}
 		return true;
 	}

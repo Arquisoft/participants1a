@@ -16,10 +16,6 @@ public class PeticionChangePasswordREST {
 		this.newPassword = newPassword;
 		this.email = email;
 	}
-
-	public void setRepeatNewPassword(String email) {
-		this.email = email;
-	}
 	
 	public void setPassword(String password) {
 		this.password = password;
