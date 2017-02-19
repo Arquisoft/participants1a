@@ -55,7 +55,7 @@ public class GetParticipantInfoHTMLController {
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleErrorResponseNotFound(ErrorResponse excep, Model model)
 	{
-		model.addAttribute("error", excep.getMessageJSONFormat());
+		model.addAttribute("error", excep.getMessageStringFormat());
 		
 		return "error";
 	}

@@ -36,6 +36,7 @@ public class ChangeInfoHTMLController {
 
 		// Participant que se ha logeado antes
 		Participant p = (Participant) session.getAttribute("participant");
+		Assert.isParticipantNull(p);
 		Assert.isPasswordCorrect(password, p);
 
 		// Actualizo sus datos
@@ -53,6 +54,7 @@ public class ChangeInfoHTMLController {
 
 		// Participant que se ha logeado antes
 		Participant p = (Participant) session.getAttribute("participant");
+		Assert.isParticipantNull(p);
 		Assert.isSameEmail(email, p.getEmail());
 
 		// Actualizo sus datos
@@ -66,7 +68,7 @@ public class ChangeInfoHTMLController {
 	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleErrorResponseNotFound(ErrorResponse excep, Model model) {
-		model.addAttribute("error", excep.getMessageJSONFormat());
+		model.addAttribute("error", excep.getMessageStringFormat());
 		return "error";
 	}
 }
