@@ -362,7 +362,7 @@ public class MainTest {
 				String.class);
 		assertThat(response.getBody(), equalTo(passwordRequired));
 	}
-	
+
 	@Test
 	public void newPasswordRequiredPasswordChange() {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
@@ -381,7 +381,7 @@ public class MainTest {
 				String.class);
 		assertThat(response.getBody(), equalTo(passwordRequired));
 	}
-	
+
 	@Test
 	public void samePasswordChange() {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
@@ -392,36 +392,36 @@ public class MainTest {
 				String.class);
 		assertThat(response.getBody(), equalTo(passwordRequired));
 
-		response = template.postForEntity(userURI, new PeticionChangePasswordREST("paco@hotmail.com", "djvhrhc", "djvhrhc"),
-				String.class);
+		response = template.postForEntity(userURI,
+				new PeticionChangePasswordREST("paco@hotmail.com", "djvhrhc", "djvhrhc"), String.class);
 		assertThat(response.getBody(), equalTo(passwordRequired));
 
 		response = template.postForEntity(userURI, new PeticionChangePasswordREST("paco@hotmail.com", "dkejd", "dkejd"),
 				String.class);
 		assertThat(response.getBody(), equalTo(passwordRequired));
 	}
-	
+
 	@Test
-	public void notFoundParticipantPasswordChange(){
+	public void notFoundParticipantPasswordChange() {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/changePassword";
 		String userNotFound = "{\"reason\": \"User not found\"}";
 
-		response = template.postForEntity(userURI, new PeticionChangePasswordREST("pac@hotmail.com", "djfhr", "djfhrtt"),
-				String.class);
+		response = template.postForEntity(userURI,
+				new PeticionChangePasswordREST("pac@hotmail.com", "djfhr", "djfhrtt"), String.class);
 		assertThat(response.getBody(), equalTo(userNotFound));
 
-		response = template.postForEntity(userURI, new PeticionChangePasswordREST("martin@hotmail.com", "djvhrhc", "tt"),
-				String.class);
+		response = template.postForEntity(userURI,
+				new PeticionChangePasswordREST("martin@hotmail.com", "djvhrhc", "tt"), String.class);
 		assertThat(response.getBody(), equalTo(userNotFound));
 
 		response = template.postForEntity(userURI, new PeticionChangePasswordREST("juan@hotmail.com", "dkejd", "tt"),
 				String.class);
 		assertThat(response.getBody(), equalTo(userNotFound));
 	}
-	
+
 	@Test
-	public void notSamePasswordChange(){
+	public void notSamePasswordChange() {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/changePassword";
 		String passwordIncorrect = "{\"reason\": \"Password Incorrect\"}";
@@ -430,23 +430,23 @@ public class MainTest {
 				String.class);
 		assertThat(response.getBody(), equalTo(passwordIncorrect));
 
-		response = template.postForEntity(userURI, new PeticionChangePasswordREST("pepe@gmail.com", "djvhrhc", "djvhrhc"),
-				String.class);
+		response = template.postForEntity(userURI,
+				new PeticionChangePasswordREST("pepe@gmail.com", "djvhrhc", "djvhrhc"), String.class);
 		assertThat(response.getBody(), equalTo(passwordIncorrect));
 
 		response = template.postForEntity(userURI, new PeticionChangePasswordREST("carmen@yahoo.com", "dkejd", "dkejd"),
 				String.class);
 		assertThat(response.getBody(), equalTo(passwordIncorrect));
 	}
-	
+
 	@Test
-	public void correctPasswordChange(){
+	public void correctPasswordChange() {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		String userURI = base.toString() + "/changePassword";
 		String correctPassword = "{\"Resultado\": \"Contraseña actualizada correctamente\"}";
 
-		response = template.postForEntity(userURI, new PeticionChangePasswordREST("isabel@gmail.com", "123456", "djfhr"),
-				String.class);
+		response = template.postForEntity(userURI,
+				new PeticionChangePasswordREST("isabel@gmail.com", "123456", "djfhr"), String.class);
 		assertThat(response.getBody(), equalTo(correctPassword));
 	}
 
@@ -457,11 +457,13 @@ public class MainTest {
 
 		response = template.getForEntity(userURI, String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", ""),
-				equalTo(new String("<!DOCTYPEHTML><html><head><metacharset=\"UTF-8\"/>"
-						+ "<title>Login</title></head><body><h1>Login</h1><formmethod=\"POST\"action=\"login\">"
-						+ "<labelfor=\"email\">Usuario:</label><inputtype=\"text\"id=\"email\"name=\"email\"/>"
-						+ "<br/><labelfor=\"password\">Contraseña:</label><inputtype=\"password\"id=\"password\"name="
-						+ "\"password\"/><br/><buttontype=\"submit\"id=\"login\">Entrar</button></form></body></html>")
+				equalTo(new String(
+						"<!DOCTYPEHTML><html><head><metacharset=\"UTF-8\"/><title>Login</title></head><body>"
+						+ "<h1>Login</h1><formmethod=\"POST\"action=\"login\"><table><tr><td><labelfor=\"email\">"
+						+ "<strong>Usuario:</strong></label></td><td><inputtype=\"text\"id=\"email\"name=\"email\"/>"
+						+ "</td></tr><tr><td><labelfor=\"password\"><strong>Contraseña:</strong></label></td><td>"
+						+ "<inputtype=\"password\"id=\"password\"name=\"password\"/></td></tr><tr><td><buttontype="
+						+ "\"submit\"id=\"login\">Entrar</button></td></tr></table></form></body></html>")
 								.replace(" ", "")));
 	}
 }
