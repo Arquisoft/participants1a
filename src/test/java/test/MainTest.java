@@ -6,7 +6,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +20,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
@@ -457,13 +467,59 @@ public class MainTest {
 
 		response = template.getForEntity(userURI, String.class);
 		assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", ""),
-				equalTo(new String(
-						"<!DOCTYPEHTML><html><head><metacharset=\"UTF-8\"/><title>Login</title></head><body>"
+				equalTo(new String("<!DOCTYPEHTML><html><head><metacharset=\"UTF-8\"/><title>Login</title></head><body>"
 						+ "<h1>Login</h1><formmethod=\"POST\"action=\"login\"><table><tr><td><labelfor=\"email\">"
 						+ "<strong>Usuario:</strong></label></td><td><inputtype=\"text\"id=\"email\"name=\"email\"/>"
 						+ "</td></tr><tr><td><labelfor=\"password\"><strong>Contraseña:</strong></label></td><td>"
 						+ "<inputtype=\"password\"id=\"password\"name=\"password\"/></td></tr><tr><td><buttontype="
-						+ "\"submit\"id=\"login\">Entrar</button></td></tr></table></form></body></html>")
-								.replace(" ", "")));
+						+ "\"submit\"id=\"login\">Entrar</button></td></tr></table></form></body></html>").replace(" ",
+								"")));
+	}
+	
+	@Test
+	public void correctPasswordChangeXML() {
+		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+		String userURI = base.toString() + "/changePassword";
+		String correctChange = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+				+ "<ChangeInfoResponse><email>isabel@gmail.com</email>"
+				+ "<message>ContraseÃ±a actualizada correctamente</message></ChangeInfoResponse>";
+
+		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
+		interceptors.add(new AcceptInterceptor());
+
+		template.setInterceptors(interceptors);
+
+		response = template.postForEntity(userURI,
+				new PeticionChangePasswordREST("isabel@gmail.com", "djfhr", "djfhrfsdgd"), String.class);
+		assertThat(response.getBody(), equalTo(correctChange));
+	}
+	
+	@Test
+	public void emailChangeCorrectXML() {
+		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+		String userURI = base.toString() + "/changeEmail";
+		String correctChange = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+				+ "<ChangeInfoResponse><email>pac@hotmail.com</email>"
+				+ "<message>Email actualizado correctamente</message></ChangeInfoResponse>";
+
+		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
+		interceptors.add(new AcceptInterceptor());
+
+		template.setInterceptors(interceptors);
+
+		response = template.postForEntity(userURI, new PeticionChangeEmailREST("paco@hotmail.com", "pac@hotmail.com"),
+				String.class);
+		assertThat(response.getBody(), equalTo(correctChange));
+	}
+
+	// Cabecera HTTP para pedir respuesta en XML
+	public class AcceptInterceptor implements ClientHttpRequestInterceptor {
+		@Override
+		public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+				throws IOException {
+			HttpHeaders headers = request.getHeaders();
+			headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+			return execution.execute(request, body);
+		}
 	}
 }

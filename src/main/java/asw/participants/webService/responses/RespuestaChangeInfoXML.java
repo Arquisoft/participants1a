@@ -3,7 +3,7 @@ package asw.participants.webService.responses;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "ChangeEmailResponse")
+@XmlRootElement(name = "ChangeInfoResponse")
 public class RespuestaChangeInfoXML {
 
 	private String email;
