@@ -56,13 +56,13 @@ public class Assert {
 	
 	public static boolean isPasswordCorrect(String password,Participant participant){
 		if (!password.equals(participant.getPassword())) {
-			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
+			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD_DO_NOT_MATCH);
 		}
 		return true;
 	}
 	
 	public static boolean isSamePassword(String password, String password2){
-		if (!password.equals(password2)) {
+		if (password.equals(password2)) {
 			throw ErrorFactory.getError(Errors.INCORRECT_PASSWORD);
 		}
 		return true;
