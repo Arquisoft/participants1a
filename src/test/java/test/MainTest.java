@@ -33,7 +33,7 @@ import asw.participants.webService.request.PeticionInfoREST;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({ "server.port=0" })
-public class MainControllerTest {
+public class MainTest {
 
 	@Value("${local.server.port}")
 	private int port;
