@@ -25,8 +25,8 @@ public class GetParticipantInfoRESTController implements GetParticipantInfo {
 	private GetParticipant getParticipant;
 
 	@Override
-	@RequestMapping(value = "/user", method = RequestMethod.POST, headers = "Accept=application/json", produces = {
-			"application/json" })
+	@RequestMapping(value = "/user", method = RequestMethod.POST, headers = { "Accept=application/json",
+			"Accept=application/xml" }, produces = { "application/json", "text/xml" })
 	public ResponseEntity<RespuestaInfoREST> getPOSTpetition(@RequestBody(required = true) PeticionInfoREST peticion) {
 
 		Assert.isEmailEmpty(peticion.getLogin());

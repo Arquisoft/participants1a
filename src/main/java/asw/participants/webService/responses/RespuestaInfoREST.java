@@ -1,8 +1,12 @@
 package asw.participants.webService.responses;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import asw.dbManagement.model.Participant;
 import asw.participants.util.Utilidades;
 
+@XmlRootElement(name = "participant")
 public class RespuestaInfoREST {	
 	
 	private String firstName;
@@ -10,6 +14,8 @@ public class RespuestaInfoREST {
 	private int edad;
 	private String ID;
 	private String email;
+	
+	public RespuestaInfoREST() {}
 	
 	public RespuestaInfoREST(Participant participant){
 		setFirstName(participant.getNombre());
@@ -28,6 +34,7 @@ public class RespuestaInfoREST {
 		return firstName;
 	}
 
+	@XmlElement
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -36,6 +43,7 @@ public class RespuestaInfoREST {
 		return lastName;
 	}
 
+	@XmlElement
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
@@ -44,6 +52,7 @@ public class RespuestaInfoREST {
 		return edad;
 	}
 
+	@XmlElement
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
@@ -52,6 +61,7 @@ public class RespuestaInfoREST {
 		return ID;
 	}
 
+	@XmlElement
 	public void setID(String iD) {
 		ID = iD;
 	}
@@ -60,6 +70,7 @@ public class RespuestaInfoREST {
 		return email;
 	}
 
+	@XmlElement
 	public void setEmail(String email) {
 		this.email = email;
 	}

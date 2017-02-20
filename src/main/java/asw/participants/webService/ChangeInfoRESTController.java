@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,8 +31,7 @@ public class ChangeInfoRESTController implements ChangeInfo {
 	@Override
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, headers = { "Accept=application/json",
 			"Accept=application/xml" }, produces = { "application/json", "text/xml" })
-	public ResponseEntity<RespuestaChangeInfoREST> changePassword(@RequestHeader(value = "Accept") String accept,
-			@RequestBody(required=true) PeticionChangePasswordREST datos) {
+	public ResponseEntity<RespuestaChangeInfoREST> changePassword(@RequestBody(required=true) PeticionChangePasswordREST datos) {
 		String email = datos.getEmail();
 		String password = datos.getPassword();
 		String newPassword = datos.getNewPassword();
@@ -59,8 +57,7 @@ public class ChangeInfoRESTController implements ChangeInfo {
 	@Override
 	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST, headers = { "Accept=application/json",
 			"Accept=application/xml" }, produces = { "application/json", "text/xml" })
-	public ResponseEntity<RespuestaChangeInfoREST> changeEmail(@RequestHeader(value = "Accept") String accept,
-			@RequestBody(required = true) PeticionChangeEmailREST datos) {
+	public ResponseEntity<RespuestaChangeInfoREST> changeEmail(@RequestBody(required = true) PeticionChangeEmailREST datos) {
 		String email = datos.getEmail();
 		String password = datos.getPassword();
 		String nuevoEmail = datos.getNewEmail();

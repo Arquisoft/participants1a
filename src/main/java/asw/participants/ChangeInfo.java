@@ -9,19 +9,17 @@ import asw.participants.webService.responses.RespuestaChangeInfoREST;
 public interface ChangeInfo {
 	/**
 	 * Cambio de contraseña
-	 * 
-	 * @param accept header, puede ser xml o json, en funcion respondera una cosa u otra
-	 * @param datos requeridos
-	 * @return respuesta en xml o json
+	 *
+	 * @param datos requeridos (email, password, newPassword)
+	 * @return 
 	 */
-	public ResponseEntity<RespuestaChangeInfoREST> changePassword(String accept, PeticionChangePasswordREST datos);
+	public ResponseEntity<RespuestaChangeInfoREST> changePassword(PeticionChangePasswordREST datos);
 
 	/**
 	 * Cambio de email
 	 * 
-	 * @param accept header, puede ser xml o json, en funcion respondera una cosa otra
-	 * @param datos requeridos
+	 * @param datos requeridos (email, password, newEmail)
 	 * @return respuesta en xml o json
 	 */
-	public ResponseEntity<RespuestaChangeInfoREST> changeEmail(String accept, PeticionChangeEmailREST datos);
+	public ResponseEntity<RespuestaChangeInfoREST> changeEmail(PeticionChangeEmailREST datos);
 }
