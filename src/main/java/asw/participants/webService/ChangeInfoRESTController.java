@@ -2,6 +2,7 @@ package asw.participants.webService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -17,7 +18,7 @@ import asw.participants.ChangeInfo;
 import asw.participants.util.Assert;
 import asw.participants.webService.request.PeticionChangeEmailREST;
 import asw.participants.webService.request.PeticionChangePasswordREST;
-import asw.participants.webService.responses.RespuestaChangeInfoXML;
+import asw.participants.webService.responses.RespuestaChangeInfoREST;
 import asw.participants.webService.responses.errors.ErrorResponse;
 
 @RestController
@@ -31,7 +32,7 @@ public class ChangeInfoRESTController implements ChangeInfo {
 	@Override
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, headers = { "Accept=application/json",
 			"Accept=application/xml" }, produces = { "application/json", "text/xml" })
-	public Object changePassword(@RequestHeader(value = "Accept") String accept,
+	public ResponseEntity<RespuestaChangeInfoREST> changePassword(@RequestHeader(value = "Accept") String accept,
 			@RequestBody(required=true) PeticionChangePasswordREST datos) {
 		String email = datos.getEmail();
 		String password = datos.getPassword();
@@ -39,8 +40,10 @@ public class ChangeInfoRESTController implements ChangeInfo {
 		
 		Assert.isEmailEmpty(email);
 		Assert.isEmailValid(email);
+		
 		Assert.isPasswordEmpty(password);
 		Assert.isPasswordEmpty(newPassword);
+		
 		Assert.isSamePassword(password, newPassword);	
 
 		Participant p = getParticipant.getParticipant(email);
@@ -49,42 +52,37 @@ public class ChangeInfoRESTController implements ChangeInfo {
 
 		updateInfo.updatePassword(p, password, newPassword);
 
-		return generatePasswordResponse(accept, email);
+		RespuestaChangeInfoREST res = new RespuestaChangeInfoREST(email, "contraseña actualizada correctamente");
+		return new ResponseEntity<RespuestaChangeInfoREST>(res, HttpStatus.OK);
 	}
 
 	@Override
-	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST, headers = {
-			"Accept=application/json", "Accept=application/xml" }, produces = { "application/json", "text/xml" })
-	public Object changeEmail(@RequestHeader(value = "Accept") String accept,
-			@RequestBody(required=true) PeticionChangeEmailREST datos) {
+	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST, headers = { "Accept=application/json",
+			"Accept=application/xml" }, produces = { "application/json", "text/xml" })
+	public ResponseEntity<RespuestaChangeInfoREST> changeEmail(@RequestHeader(value = "Accept") String accept,
+			@RequestBody(required = true) PeticionChangeEmailREST datos) {
 		String email = datos.getEmail();
-		String nuevoEmail = datos.getEmailNuevo();
+		String password = datos.getPassword();
+		String nuevoEmail = datos.getNewEmail();
 		
 		Assert.isEmailEmpty(email);
 		Assert.isEmailValid(email);
+		
 		Assert.isEmailEmpty(nuevoEmail);
 		Assert.isEmailValid(nuevoEmail);
+		
 		Assert.isSameEmail(email, nuevoEmail);
+
+		Assert.isPasswordEmpty(password);
 		
 		Participant p = getParticipant.getParticipant(email);
 		Assert.isParticipantNull(p);
-		updateInfo.updateEmail(p, email);
+		Assert.isPasswordCorrect(password, p);
 		
-		return generateEmailResponse(accept, nuevoEmail);
-	}
-	
-	private Object generateEmailResponse(String accept, String emailNuevo) {
-		if(accept.contains("application/xml"))
-			return new RespuestaChangeInfoXML(emailNuevo, "Email actualizado correctamente");
-		else
-			return "{\"Resultado\": \"Email actualizado correctamente\"}";
-	}
-	
-	private Object generatePasswordResponse(String accept, String email) {
-		if(accept.contains("application/xml"))
-			return new RespuestaChangeInfoXML(email, "Contraseña actualizada correctamente");
-		else
-			return "{\"Resultado\": \"Contraseña actualizada correctamente\"}";
+		updateInfo.updateEmail(p, nuevoEmail);
+
+		RespuestaChangeInfoREST res = new RespuestaChangeInfoREST(nuevoEmail, "email actualizado correctamente");
+		return new ResponseEntity<RespuestaChangeInfoREST>(res, HttpStatus.OK);
 	}
 
 	@ExceptionHandler(ErrorResponse.class)

@@ -4,27 +4,27 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "ChangeInfoResponse")
-public class RespuestaChangeInfoXML {
+public class RespuestaChangeInfoREST {
 
-	private String email;
+	private String participant;
 	private String message;
 
-	public RespuestaChangeInfoXML() {
+	public RespuestaChangeInfoREST() {
 	}
 
-	public RespuestaChangeInfoXML(String email, String message) {
+	public RespuestaChangeInfoREST(String participant, String message) {
 		super();
-		this.email = email;
+		this.participant = participant;
 		this.message = message;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getParticipant() {
+		return participant;
 	}
 
 	@XmlElement
-	public void setEmail(String email) {
-		this.email = email;
+	public void setParticipant(String participant) {
+		this.participant = participant;
 	}
 
 	public String getMessage() {
