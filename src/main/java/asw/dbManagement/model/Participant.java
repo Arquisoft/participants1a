@@ -12,12 +12,11 @@ import javax.persistence.Table;
 @Table(name = "Participant")
 public class Participant {
 
-	
 	// Id generado automáticamente para diferenciar cada uno (para mapear)
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	// Atributos del participante
 	private String nombre;
 	private String apellidos;
@@ -29,15 +28,19 @@ public class Participant {
 	private String DNI;
 	private String direccion;
 	private String nacionalidad;
-	
-	
+
+	private boolean isAdmin;
+	private boolean isPolitician;
+
 	/**
 	 * Constructor vacío (ya que es para mapear)
 	 */
-	Participant() { }
+	Participant() {
+	}
 
 	/**
 	 * Constructor
+	 * 
 	 * @param nombre
 	 * @param apellidos
 	 * @param password
@@ -47,8 +50,8 @@ public class Participant {
 	 * @param direccion
 	 * @param nacionalidad
 	 */
-	public Participant(String nombre, String apellidos, String password, Date fechaNacimiento, 
-			String email, String dNI, String direccion, String nacionalidad) {
+	public Participant(String nombre, String apellidos, String password, Date fechaNacimiento, String email, String dNI,
+			String direccion, String nacionalidad, boolean isAdmin, boolean isPolitician) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -58,6 +61,8 @@ public class Participant {
 		this.DNI = dNI;
 		this.direccion = direccion;
 		this.nacionalidad = nacionalidad;
+		this.isAdmin = isAdmin;
+		this.isPolitician = isPolitician;
 	}
 
 	public Long getId() {
@@ -71,11 +76,11 @@ public class Participant {
 	public String getApellidos() {
 		return apellidos;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -87,8 +92,8 @@ public class Participant {
 	public String getEmail() {
 		return email;
 	}
-	
-	public void setEmail(String email){
+
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -102,6 +107,22 @@ public class Participant {
 
 	public String getNacionalidad() {
 		return nacionalidad;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public boolean isPolitician() {
+		return isPolitician;
+	}
+
+	public void setPolitician(boolean isPolitician) {
+		this.isPolitician = isPolitician;
 	}
 
 	@Override
@@ -131,13 +152,9 @@ public class Participant {
 
 	@Override
 	public String toString() {
-		return "Participant [nombre=" + nombre + ", apellidos=" + apellidos + ", fechaNacimiento=" + fechaNacimiento
-				+ ", email=" + email + ", DNI=" + DNI + ", direccion=" + direccion + ", nacionalidad=" + nacionalidad
-				+ "]";
+		return "Participant [nombre=" + nombre + ", apellidos=" + apellidos + ", fechaNacimiento=" + fechaNacimiento + ", email=" + email + ", DNI=" + DNI + ", direccion="
+				+ direccion + ", nacionalidad=" + nacionalidad + ", isAdmin=" + isAdmin + ", isPolitician="
+				+ isPolitician + "]";
 	}
-	
-	
-	
-	
-	
+
 }

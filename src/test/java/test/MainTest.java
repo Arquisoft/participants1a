@@ -83,7 +83,7 @@ public class MainTest {
 				"Participant [nombre=" + participant1.getNombre() + ", apellidos=" + participant1.getApellidos()
 						+ ", fechaNacimiento=" + participant1.getFechaNacimiento() + ", email="
 						+ participant1.getEmail() + ", DNI=" + participant1.getDNI() + ", direccion="
-						+ participant1.getDireccion() + ", nacionalidad=" + participant1.getNacionalidad() + "]");
+						+ participant1.getDireccion() + ", nacionalidad=" + participant1.getNacionalidad() + ", isAdmin=false, isPolitician=false]");
 	}
 
 	@Test
